@@ -5,7 +5,7 @@ Lambda, golang and typescript -- Comparing how typescript and golang fair with c
 ## How to run
 All scripts are handled from within the `makefile`
 some of the commands to get you started include
-- `make run` to run the golang portion of the application
+- `make run-sort` to run the golang sorting portion of the application
 - `make build` to build the golang portion of the application and run a dry test
 - `make test` to run tests on the golang portion of the application, both unit tests and race condition tests
 - `make packageInstall` to install all the dependencies required for the typescript portion of the application

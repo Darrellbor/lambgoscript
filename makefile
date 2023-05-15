@@ -1,9 +1,9 @@
 all: test build lint
 
 # golang executions
-run:
+run-sort:
 	cd golang && \
-	go run cmd/run.go
+	go run cmd/sort/run.go
 
 build:
 	cd golang && \
