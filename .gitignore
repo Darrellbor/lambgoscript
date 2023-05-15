@@ -1,0 +1,6 @@
+#typescript
+typescript/node_modules
+typescript/build
+
+#golang
+golang/bin
