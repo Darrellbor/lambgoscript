@@ -1,4 +1,4 @@
-import { bubbleSort, Order } from "./sort";
+import { bubbleSort, Order } from ".";
 
 describe("SynchronousBubbleSort", () => {
   test("Sort With Negatives", () => {

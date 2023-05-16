@@ -1,4 +1,4 @@
-import fibonacci from "./fibonacci";
+import fibonacci from ".";
 
 test("Test Fibonacci", () => {
   const start = performance.now();

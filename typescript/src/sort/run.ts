@@ -1,10 +1,24 @@
-import { bubbleSort, Order } from './sort'
+import fs from 'fs';
+import { bubbleSort, Order } from ".";
 
-const arr = [5, 3, 8, 2, 1, 4];
-console.log("Original array:", arr);
+const runSort = () => {
+    const file = fs.readFileSync(`${__dirname}/../../../input/sort.txt`)
+    const fileLine = file.toString().split(`\n`)
 
-bubbleSort(arr, Order.Ascending);
-console.log("Sorted array in ascending order:", arr);
+    const start = performance.now();
+    for(let line of fileLine) {
+        console.log(`\n\n`)
+        const numStringArr = line.split(' ')
+        const numArr = numStringArr.map((num) => parseInt(num))
+        console.log('Number array before sorted: ', numArr)
+        bubbleSort(numArr, Order.Ascending);
+        console.log('Number array after sorted (Ascending): ', numArr)
+        bubbleSort(numArr, Order.Descending);
+        console.log('Number array after sorted (Descending): ', numArr)
+    }
+    const duration = performance.now() - start;
+    console.log("Duration of execution:", duration, "ms");
 
-bubbleSort(arr, Order.Descending);
-console.log("Sorted array in descending order:", arr);
+}
+
+export default runSort;
