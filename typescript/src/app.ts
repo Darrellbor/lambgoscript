@@ -1,6 +1,9 @@
-import runSort from "./sort/run";
-import runFibonacci from "./fibonacci/run";
+import runSort, { testSort } from "./sort/run";
+import runFibonacci, { testFibonacci } from "./fibonacci/run";
 
 
-runSort();
-runFibonacci();
+// runSort();
+// runFibonacci();
+
+// testSort()
+testFibonacci()

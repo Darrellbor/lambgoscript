@@ -2,18 +2,74 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/Darrellbor/lambgoscript/sort"
 )
 
 func main() {
-	arr := []int{64, 34, 25, 12, 22, 11, 90}
-	arr2 := []int{84, 23, 98, 25, 9, 12, 54}
-	fmt.Println("\nUnsorted array:", arr)
-	sort.SynchronousBubbleSort(arr, sort.Descending)
-	fmt.Println("Sorted array (with synchronous bubble sort):", arr)
+	testLen := 1000
+	var totalMs time.Duration
 
-	fmt.Println("\n\nUnsorted array 2:", arr2)
-	sort.ConcurrentBubbleSort(arr2, sort.Ascending)
-	fmt.Println("Sorted array (with concurrent bubble sort):", arr2)
+	for i := 0; i < testLen; i++ {
+		totalMs += sortMain()
+	}
+
+	averageMs := totalMs / time.Duration(testLen)
+	fmt.Printf("The average of %d tests gives a duration of %v", testLen, averageMs)
+}
+
+func sortMain() time.Duration {
+	filePath := "../input/sort.txt"
+	file, err := os.ReadFile(filePath)
+	ErrCheck(err)
+
+	fileContent := string(file)
+	fileLines := strings.Split(fileContent, "\n")
+
+	start := time.Now()
+	for _, line := range fileLines {
+		fmt.Printf("\n\n")
+		numStringArr := strings.Split(line, " ")
+		numArr := make([]int, 0, len(numStringArr))
+
+		for _, numString := range numStringArr {
+			num, err := strconv.Atoi(numString)
+			if err != nil {
+				fmt.Println("Error converting number:", err)
+				continue
+			}
+			numArr = append(numArr, num)
+		}
+		synchronousCall(numArr)
+	}
+	duration := time.Since(start)
+	fmt.Println("Duration of execution:", duration)
+
+	return duration
+}
+
+func synchronousCall(numArr []int) {
+	fmt.Println("Number array before sorted:", numArr)
+	sort.SynchronousBubbleSort(numArr, sort.Ascending)
+	fmt.Println("Number array after sorted (Ascending):", numArr)
+	sort.SynchronousBubbleSort(numArr, sort.Descending)
+	fmt.Println("Number array after sorted (Descending):", numArr)
+}
+
+func concurrentCall(numArr []int) {
+	fmt.Println("Number array before sorted:", numArr)
+	sort.ConcurrentBubbleSort(numArr, sort.Ascending)
+	fmt.Println("Number array after sorted (Ascending-Concurrent):", numArr)
+	sort.ConcurrentBubbleSort(numArr, sort.Descending)
+	fmt.Println("Number array after sorted (Descending-Concurrent):", numArr)
+}
+
+func ErrCheck(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
