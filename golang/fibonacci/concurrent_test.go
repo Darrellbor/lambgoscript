@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestSynchronousFibonacci(t *testing.T) {
+func TestConcurrentFibonacci(t *testing.T) {
 	cases := []struct {
 		name        string
 		testVal     int
@@ -26,8 +26,8 @@ func TestSynchronousFibonacci(t *testing.T) {
 		},
 		{
 			name:        "Regular high value fibonacci",
-			testVal:     45,
-			expectedVal: 1134903170,
+			testVal:     2000,
+			expectedVal: -6817091959060941595,
 		},
 	}
 
@@ -35,21 +35,10 @@ func TestSynchronousFibonacci(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			start := time.Now()
 
-			fibonacciVal := Synchronous(tc.testVal)
+			fibonacciVal := Concurrent(tc.testVal)
 			duration := time.Since(start)
 			require.Equal(t, tc.expectedVal, fibonacciVal, "Computation error as fibonacci value does not equal expected value")
 			fmt.Println("Duration of execution: ", duration)
 		})
 	}
-}
-
-func TestSynchronousWithMemoFibonacci(t *testing.T) {
-	start := time.Now()
-	testVal := 20000
-	expectedVal := -4378934567125391099
-
-	fibonacciVal := SynchronousWithMemo(testVal)
-	duration := time.Since(start)
-	require.Equal(t, expectedVal, fibonacciVal, "Computation error as fibonacci value does not equal expected value")
-	fmt.Println("Duration of execution: ", duration)
 }
