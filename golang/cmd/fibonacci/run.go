@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"strconv"
@@ -8,10 +9,16 @@ import (
 	"time"
 
 	"github.com/Darrellbor/lambgoscript/fibonacci"
+	"github.com/aws/aws-lambda-go/lambda"
 )
 
+
 func main() {
-	testLen := 1000
+	lambda.Start(HandleRequest)
+}
+
+func HandleRequest(ctx context.Context, event interface{}) (string, error) {
+	testLen := 100000
 	var totalMs time.Duration
 
 	for i := 0; i < testLen; i++ {
@@ -19,11 +26,11 @@ func main() {
 	}
 
 	averageMs := totalMs / time.Duration(testLen)
-	fmt.Printf("The average of %d tests gives a duration of %v", testLen, averageMs)
+	return fmt.Sprintf("The average of %d tests gives a duration of %v", testLen, averageMs), nil
 }
 
 func fibonacciMain() time.Duration {
-	filePath := "../input/fibonacci.txt"
+	filePath := "./cmd/fibonacci/fibonacci.txt"
 	file, err := os.ReadFile(filePath)
 	ErrCheck(err)
 

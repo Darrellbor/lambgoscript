@@ -1,6 +1,7 @@
 #typescript
 typescript/node_modules
 typescript/build
+typescript/build.zip
 
 #golang
 golang/bin

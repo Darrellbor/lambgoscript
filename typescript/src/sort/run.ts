@@ -1,8 +1,8 @@
 import fs from "fs";
 import { bubbleSort, Order } from ".";
 
-const runSort = (): number => {
-  const file = fs.readFileSync(`${__dirname}/../../../input/sort.txt`);
+export const runSort = (): number => {
+  const file = fs.readFileSync(`${__dirname}/sort.txt`);
   const fileLine = file.toString().split(`\n`);
 
   const start = performance.now();
@@ -22,7 +22,7 @@ const runSort = (): number => {
 };
 
 export const testSort = () => {
-  const testLen = 1000;
+  const testLen = 100000;
   let totalMs = 0;
 
   for (let i = 0; i < testLen; i++) {

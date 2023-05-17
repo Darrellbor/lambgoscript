@@ -11,15 +11,13 @@ run-fibonacci:
 
 build-sort:
 	cd golang && \
-	env GOOS=linux go build -o bin/sort/run cmd/sort/run.go && \
-	cd bin/sort && zip upload-sort.zip run && cd .. && cd .. && \
-	go test . -run xxx
+	env GOOS=linux go build -o bin/sort/main cmd/sort/run.go && \
+	cd bin/sort && zip upload-sort.zip main
 
 build-fibonacci:
 	cd golang && \
-	env GOOS=linux go build -o bin/fibonacci/run cmd/fibonacci/run.go && \
-	cd bin/fibonacci && zip upload-fibonacci.zip run && cd .. && cd .. && \
-	go test . -run xxx
+	env GOOS=linux go build -o bin/fibonacci/main cmd/fibonacci/run.go && \
+	cd bin/fibonacci && zip upload-fibonacci.zip main
 
 test:
 	cd golang && \
